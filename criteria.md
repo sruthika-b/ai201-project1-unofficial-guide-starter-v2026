@@ -70,14 +70,15 @@ campus topic and create a borderline result.
        - "No chunk is shorter than 200 characters, since anything below that
           in my corpus turned out to be a heading with no content under it." -->
 
-     At least 4 of 5 sampled chunks should contain a complete answer or complete
-     idea without cutting the important sentence across two chunks.
+     In a sample of 5 chunks, at least 4 should end at a sentence or paragraph
+     boundary rather than splitting a sentence across two chunks.
 
 
 **Why this target:**
      The campus_life documents are short and each focuses on one administrative
-     topic, so most chunks should preserve a complete answer. I chose 4 of 5 because
-     one chunk may still have an awkward boundary.
+     topic, so most chunks should preserve a complete thought. I chose 4 of 5
+     because one chunk may still have an awkward boundary while the rest should
+     remain easy to interpret on their own.
 
 
 
