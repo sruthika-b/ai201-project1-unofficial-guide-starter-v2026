@@ -23,6 +23,7 @@ your pipeline, not giving up.
 """
 
 from dataclasses import dataclass
+import re
 
 import config
 from ingest import Document
@@ -97,7 +98,52 @@ def split_documents(documents: list[Document]) -> list[Chunk]:
       - Would splitting on paragraph breaks keep more thoughts intact than
         splitting on a character count?
     """
-    return fallback_split(documents)
+    chunks: list[Chunk] = []
+    for doc in documents:
+        paragraphs = [part.strip() for part in doc.text.split("\n\n") if part.strip()]
+        index = 0
+
+        grouped: list[str] = []
+        current_group = ""
+        for paragraph in paragraphs:
+            candidate = f"{current_group}\n\n{paragraph}".strip()
+            if current_group and len(candidate) > config.CHUNK_SIZE:
+                grouped.append(current_group)
+                current_group = paragraph
+            else:
+                current_group = candidate
+        if current_group:
+            grouped.append(current_group)
+
+        for group in grouped:
+            if len(group) <= config.CHUNK_SIZE:
+                pieces = [group]
+            else:
+                sentences = re.split(r"(?<=[.!?])\s+", group)
+                pieces = []
+                current = ""
+                for sentence in sentences:
+                    candidate = f"{current} {sentence}".strip()
+                    if current and len(candidate) > config.CHUNK_SIZE:
+                        pieces.append(current)
+                        current = sentence
+                    else:
+                        current = candidate
+                if current:
+                    pieces.append(current)
+
+            for piece in pieces:
+                chunks.append(
+                    Chunk(
+                        text=piece,
+                        source=doc.source,
+                        index=index,
+                        produced_by="chunker.py::split_documents",
+                    )
+                )
+                index += 1
+
+    return chunks
 
 
 def describe(chunks: list[Chunk]) -> str:
