@@ -169,9 +169,17 @@ is L-shaped and the short wing is much quieter.
 
      Milestone 5. -->
 
-**1.**
+**1.** I used an AI self-check to pressure-test the five acceptance criteria. It
+checked whether each criterion named a number or observable outcome, could be
+tested by a stranger, and would be scored consistently. Based on that review, I
+rewrote the chunk criterion from a subjective “complete idea” test to counting
+whether 4 of 5 sampled chunks end at sentence or paragraph boundaries.
 
-**2.**
+**2.** I asked AI to help reason about the corpus shape before implementing the
+chunker. The useful conclusion was that `campus_life` contains short,
+topic-focused documents, so paragraph-preserving chunks fit better than generic
+fixed windows. I implemented and tested `chunker.py::split_documents` myself;
+it keeps headings with content and produced 88 chunks averaging 317 characters.
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
