@@ -345,6 +345,24 @@ The first three criteria met their targets without any miss, so there is no stag
 
 The only missing evaluation is for criteria 4 and 5. Those are not failures in this run; they are unmeasured because the run output records pass/fail by question, not a chunk-boundary audit or a source-support audit. In other words, the run validated the retrieval-and-answer pipeline, but not the chunk-quality and source-trustworthiness checks from the original acceptance criteria.
 
+## Expanded Second Run — Not Completed
+
+After adding two harder in-scope questions, I attempted to run the expanded
+question set with `python3 run_eval.py`. The second run did not complete: the
+Google generation API returned `503 UNAVAILABLE` and reported that the model
+was experiencing high demand. No completed answer results or evaluator scores
+were produced for this attempt, so it cannot be treated as a scored run.
+
+The two added questions were:
+
+1. After week two, what appears on a transcript if a student drops a course?
+2. When should students eat at Pellew Dining Hall to avoid the longest waits?
+
+The terminal screenshot of the `503 UNAVAILABLE` error was supplied in the
+conversation but is not present as an image file in this repository, so it is
+not embedded here. The error is transcribed above; the screenshot can be added
+here once it is available in the workspace.
+
 <!-- For each miss: which stage caused it, and how. The stage alone isn't
      enough — you need the mechanism.
 
