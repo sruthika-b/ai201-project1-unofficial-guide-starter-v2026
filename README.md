@@ -384,11 +384,13 @@ here once it is available in the workspace.
 ## The Improvement
 
 **What I changed:**
+The model responded with the right answer and the right snippet for the answer for the questions I have added, I had tried adding a couple of more questions, but the gemini model did't seem to be available for running the test suite.
 
 **Why I picked it:**
 
 <!-- Connect it to a specific diagnosis above in one sentence. If you can't,
      you picked a fix because it sounded impressive. -->
+As we have discussed in the class failure is more quality data point than a successful test suite, so I felt like adding a few more hard questions would help us fine tune the chunker better.
 
 ### Run Log — After
 
@@ -421,6 +423,7 @@ here once it is available in the workspace.
      not.
 
      Milestone 5. -->
+     Testing on harder questions is still pending. The current test suite with 5 questions I had ran successfully and consistently.
 
 ## What I'd Do Differently
 
@@ -428,3 +431,4 @@ here once it is available in the workspace.
      differently, and why?
 
      Milestone 5. -->
+     From the next time, I would add more harder tests, some trickier ones as well so that the testing is extensive and we can successfully find the failure points as well and also include more metrics while testing.
