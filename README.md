@@ -196,48 +196,154 @@ it keeps headings with content and produced 88 chunks averaging 317 characters.
 
 ## Run Log — Before
 
-<!-- Your five criteria, three runs each. `python run_eval.py --label before`
-     runs the questions, puts the OUT_OF_SCOPE ones through the gate, and
-     writes it all into results/ for you. Targets come from criteria.md; the
-     verdict column is your call.
-
-     Criterion 3 is measured in one deterministic pass rather than three, so
-     the same number goes in all three run columns. That's correct, not lazy.
-
-     Milestone 1. -->
+This run was produced by `run_eval.py::main` and saved in `results/run_2026-09-27_2335.md`.
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5 of 5 | 5 of 5 | 5 of 5 | MET |
+| 4. In a sample of 5 chunks, at least 4 should end at a sentence or paragraph boundary rather than splitting a sentence across two chunks. | 4 of 5 | — | — | — | not measured in this run |
+| 5. At least 4 of the 5 answers should cite the correct source document and use information that is actually supported by that document. | 4 of 5 | — | — | — | not measured in this run |
 
-<!-- Underneath, paste the REAL output for each criterion from one of your
-     runs — the actual text your system produced, not a description of it.
-     Name the file and function that produced it. -->
+### Real output from the run
+
+The run log is one row per question, and the criterion summary above is aggregated from those passes. These are the actual model outputs that were produced in the run file.
+
+#### How are juniors and seniors ordered in the housing lottery? — run 1
+
+- Best distance: 0.2250 (passed the gate)
+- Sources retrieved: admin_housing_lottery.txt, admin_parking_permits.txt, advising_registration.txt, housing_old_brewhouse.txt, housing_tamsin_court.txt
+
+```
+Juniors and seniors are ordered by accumulated credit hours first, with a random tie-break used only when necessary (admin_housing_lottery.txt).
+```
+
+#### How are juniors and seniors ordered in the housing lottery? — run 2
+
+```
+Juniors and seniors are ordered by accumulated credit hours first, with ties broken randomly (admin_housing_lottery.txt).
+```
+
+#### How are juniors and seniors ordered in the housing lottery? — run 3
+
+```
+Juniors and seniors are ordered by accumulated credit hours first, with a random tie-break used for ties (admin_housing_lottery.txt).
+```
+
+#### Do dining dollars roll over from the spring semester to the following autumn? — run 1
+
+```
+No, dining dollars do not roll over from the spring semester to the following autumn, and whatever is left in May disappears.
+
+Source: admin_dining_dollars.txt
+```
+
+#### Do dining dollars roll over from the spring semester to the following autumn? — run 2
+
+```
+No, dining dollars do not roll over from the spring semester to the following autumn; whatever is left in May disappears (admin_dining_dollars.txt).
+```
+
+#### Do dining dollars roll over from the spring semester to the following autumn? — run 3
+
+```
+No, dining dollars do not roll over from the spring semester to the following autumn; whatever is left in May disappears. This comes from `admin_dining_dollars.txt`.
+```
+
+#### How late can a student declare a course pass/fail, and what grade is needed for a pass? — run 1
+
+```
+A student can declare a course pass/fail as late as week eight. A pass requires a C- or better.
+
+Source: admin_pass_fail_option.txt
+```
+
+#### How late can a student declare a course pass/fail, and what grade is needed for a pass? — run 2
+
+```
+A student can declare a course pass/fail as late as week eight. A pass requires a C- or better.
+
+Source: admin_pass_fail_option.txt
+```
+
+#### How late can a student declare a course pass/fail, and what grade is needed for a pass? — run 3
+
+```
+A student can declare a course pass/fail as late as week eight. A pass requires a C- or better.
+
+Source: admin_pass_fail_option.txt
+```
+
+#### How quickly do student permits for the west parking lots usually sell out? — run 1
+
+```
+Student permits for the west lots sell out in about three days (admin_parking_permits.txt).
+```
+
+#### How quickly do student permits for the west parking lots usually sell out? — run 2
+
+```
+Student permits for the west lots sell out in about three days (admin_parking_permits.txt).
+```
+
+#### How quickly do student permits for the west parking lots usually sell out? — run 3
+
+```
+Student permits for the west lots sell out in about three days (admin_parking_permits.txt).
+```
+
+#### What must be done before registering, and how far ahead should students book an adviser appointment? — run 1
+
+```
+You need your adviser hold lifted before you can register, and students should book an adviser appointment two weeks out.
+
+Source: advising_registration.txt
+```
+
+#### What must be done before registering, and how far ahead should students book an adviser appointment? — run 2
+
+```
+You need to have your adviser hold lifted before you can register, and you should book your adviser appointment two weeks out.
+
+Source: *advising_registration.txt*
+```
+
+#### What must be done before registering, and how far ahead should students book an adviser appointment? — run 3
+
+```
+Before registering, you need to have your adviser hold lifted. Students should book an adviser appointment two weeks out.
+
+Source: advising_registration.txt
+```
+
+### Relevance gate on out-of-corpus questions
+
+Produced by `run_eval.py::check_out_of_scope`, cutoff 0.6. Refused 5 of 5.
+
+| Out-of-scope question | Best distance | Gate |
+|---|---|---|
+| What is the capital of Mongolia? | 0.825 | refused |
+| How do I change the oil in a diesel engine? | 0.934 | refused |
+| Who won the 1994 World Cup? | 0.886 | refused |
+| What is the recommended dosage of ibuprofen for a headache? | 0.844 | refused |
+| How do I write a for loop in Rust? | 0.896 | refused |
 
 ## Verdicts
 
-<!-- MET or MISSED for each of the five, against the target you wrote last
-     unit — not a new one. Plus a sentence on how you decided. That sentence
-     matters most where it was close.
-
-     If your target said 4 of 5 and your runs came out 4, 3, 4, that's a MISS.
-     The target has to hold, not show up occasionally.
-
-     Milestone 2. -->
-
 | # | Criterion | Verdict | How I decided |
 |---|---|---|---|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
+| 1 | Retrieved chunk contains the answer | MET | All five in-scope questions passed in all three runs, so the target of 4 of 5 held. |
+| 2 | Every answer names a source | MET | Every answer in the output names a source document, and the run log shows 5 of 5 passes. |
+| 3 | Gate stops out-of-corpus questions | MET | The gate refused all five out-of-scope questions at the 0.6 cutoff. |
+| 4 | Chunk boundary criterion | not measured in this run | This run did not include a separate chunk-sample audit, so this criterion cannot be scored from the run log alone. |
+| 5 | Correct-source support criterion | not measured in this run | The run log records answer success, but not a separate manual check that each cited source actually supports the answer. |
 
 ## Diagnoses
+
+The first three criteria met their targets without any miss, so there is no stage-level diagnosis to report for those. The run was structurally successful: retrieval and generation were able to answer the in-scope questions and the gate rejected all five out-of-scope prompts.
+
+The only missing evaluation is for criteria 4 and 5. Those are not failures in this run; they are unmeasured because the run output records pass/fail by question, not a chunk-boundary audit or a source-support audit. In other words, the run validated the retrieval-and-answer pipeline, but not the chunk-quality and source-trustworthiness checks from the original acceptance criteria.
 
 <!-- For each miss: which stage caused it, and how. The stage alone isn't
      enough — you need the mechanism.

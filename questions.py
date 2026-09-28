@@ -42,6 +42,18 @@ QUESTIONS = [
         "question": "What must be done before registering, and how far ahead should students book an adviser appointment?",
         "expects": "adviser hold",
     },
+    {
+        "question": "After week two, what appears on a transcript if a student drops a course?",
+        "expects": "W on your transcript",
+    },
+    {
+        "question": "When should students eat at Pellew Dining Hall to avoid the longest waits?",
+        "expects": "before 11:45",
+    },
+    {
+        "question": "What climate problem does Innisfree Hall have, and where is the quietest part of the building?",
+        "expects": "no air conditioning",
+    },
 ]
 
 # Questions from a different world entirely. Your gate should refuse all five.
